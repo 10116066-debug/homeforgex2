@@ -1,530 +1,237 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOME FORGEX - Eaglercraft Clientes Hackeados</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<title>FORGEX HUB</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(to bottom right, #0f172a, #1e293b, #0f172a);
-            color: #fff;
-            min-height: 100vh;
-        }
+<style>
+:root{
+  --bg:#0F121C;
+  --panel:#1F293E;
+  --accent:#0099FF;
+  --accent-hover:#00B0FF;
+  --highlight:#FFE600;
+  --text:#FFFFFF;
+  --text-secondary:#AAAEBF;
+}
 
-        /* Modal de Aviso */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            padding: 1rem;
-        }
+*{box-sizing:border-box}
 
-        .modal-overlay.hidden {
-            display: none;
-        }
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
 
-        .modal-content {
-            background: #0f172a;
-            border: 2px solid #ef4444;
-            border-radius: 0.5rem;
-            padding: 2rem;
-            max-width: 30rem;
-            width: 100%;
-            text-align: center;
-        }
+header{
+  background:var(--panel);
+  text-align:center;
+  padding:30px 20px;
+}
 
-        .modal-content h1 {
-            font-size: 1.875rem;
-            font-weight: bold;
-            color: #ef4444;
-            margin-bottom: 1.5rem;
-        }
+header h1{
+  font-size:3.4rem;
+  margin:0;
+  color:var(--accent);
+  letter-spacing:2px;
+}
 
-        .modal-content .space-y-4 {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
+section{
+  max-width:1000px;
+  margin:auto;
+  padding:25px 20px;
+}
 
-        .modal-content p {
-            font-size: 1.125rem;
-            line-height: 1.5;
-        }
+h2{
+  color:var(--accent);
+  margin-bottom:20px;
+}
 
-        .modal-content .yellow {
-            font-weight: bold;
-            color: #facc15;
-        }
+/* Aviso construcción */
+.demo-alert{
+  background-color: var(--highlight);
+  color: #0F121C;
+  text-align:center;
+  font-weight:bold;
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:25px;
+  font-size:1.1rem;
+}
 
-        .modal-content .red {
-            font-weight: bold;
-            color: #f87171;
-        }
+/* Imagen preview */
+.preview{
+  text-align:center;
+  margin-bottom:15px;
+}
 
-        .modal-content .purple {
-            font-weight: bold;
-            color: #a78bfa;
-        }
+.preview img{
+  width:100%;
+  max-width:600px;
+  border-radius:12px;
+  border:2px solid var(--accent);
+}
 
-        .modal-content .green {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #4ade80;
-            margin-top: 1.5rem;
-        }
+.fullscreen-btn{
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 16px;
+  background-color:var(--accent);
+  color:#fff;
+  text-decoration:none;
+  border-radius:6px;
+  cursor:pointer;
+  transition:.3s;
+}
 
-        .modal-btn {
-            width: 100%;
-            margin-top: 2rem;
-            background: linear-gradient(to right, #9333ea, #ec4899);
-            color: white;
-            font-weight: bold;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 0.5rem;
-            font-size: 1.125rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+.fullscreen-btn:hover{
+  background-color:var(--accent-hover);
+}
 
-        .modal-btn:hover {
-            background: linear-gradient(to right, #a855f7, #f472b6);
-        }
+/* Pasos */
+.step{
+  background:var(--panel);
+  padding:20px;
+  border-radius:10px;
+  margin-bottom:20px;
+}
 
-        /* Header */
-        header {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid #475569;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
+.step h3{
+  margin:0 0 10px 0;
+  color:var(--accent);
+}
 
-        .header-content {
-            max-width: 80rem;
-            margin: 0 auto;
-            padding: 1.5rem;
-        }
+.step p{
+  margin:0 0 10px 0;
+  color:var(--text-secondary);
+}
 
-        .header-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-            gap: 1rem;
-        }
+.step a{
+  color:var(--accent);
+  font-weight:bold;
+  word-break:break-word;
+}
 
-        .logo-btn {
-            font-size: 2.25rem;
-            font-weight: bold;
-            background: linear-gradient(to right, #a78bfa, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            cursor: pointer;
-            border: none;
-            padding: 0;
-            font-family: inherit;
-            transition: opacity 0.3s ease;
-            white-space: nowrap;
-        }
+/* Modal imagen */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.95);
+  z-index:999;
+}
 
-        .logo-btn:hover {
-            opacity: 0.8;
-        }
+.modal img{
+  display:block;
+  margin:auto;
+  max-width:90%;
+  max-height:85%;
+  margin-top:40px;
+  border-radius:10px;
+}
 
-        .header-subtitle {
-            font-size: 0.875rem;
-            color: #9ca3af;
-            white-space: nowrap;
-        }
+.close{
+  position:absolute;
+  top:20px;
+  right:30px;
+  font-size:42px;
+  color:#fff;
+  cursor:pointer;
+}
 
-        .search-input {
-            width: 100%;
-            background: #1e293b;
-            border: 1px solid #475569;
-            border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
-            color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #a78bfa;
-            box-shadow: 0 0 0 1px #a78bfa;
-        }
-
-        .search-input::placeholder {
-            color: #6b7280;
-        }
-
-        /* Main Content */
-        main {
-            max-width: 80rem;
-            margin: 0 auto;
-            padding: 3rem 1.5rem;
-        }
-
-        /* Sección Mejores Clientes */
-        .featured-section {
-            margin-bottom: 3rem;
-        }
-
-        .featured-section.hidden {
-            display: none;
-        }
-
-        .section-title {
-            font-size: 1.875rem;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid #475569;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        /* Client Card */
-        .client-card {
-            background: #1e293b;
-            border: 1px solid #475569;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .client-card:hover {
-            border-color: #a78bfa;
-            box-shadow: 0 0 20px rgba(167, 139, 250, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .client-name {
-            font-size: 1.125rem;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 0.25rem;
-        }
-
-        .client-version {
-            color: #a78bfa;
-            font-size: 0.875rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .open-btn {
-            width: 100%;
-            background: linear-gradient(to right, #9333ea, #ec4899);
-            color: white;
-            font-weight: bold;
-            padding: 0.5rem;
-            border: none;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .open-btn:hover {
-            background: linear-gradient(to right, #a855f7, #f472b6);
-        }
-
-        /* No Results */
-        .no-results {
-            text-align: center;
-            padding: 3rem;
-            color: #9ca3af;
-            font-size: 1.125rem;
-            display: none;
-        }
-
-        .no-results.show {
-            display: block;
-        }
-
-        /* Series Group */
-        .series-group {
-            margin-bottom: 3rem;
-        }
-
-        .series-group.hidden {
-            display: none;
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid #475569;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .footer-content {
-            max-width: 80rem;
-            margin: 0 auto;
-            text-align: center;
-            color: #9ca3af;
-            font-size: 0.875rem;
-        }
-
-        .footer-content p {
-            margin: 0.5rem 0;
-        }
-
-        @media (max-width: 768px) {
-            .header-top {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .header-subtitle {
-                text-align: left;
-                width: 100%;
-            }
-
-            .modal-content {
-                padding: 1.5rem;
-            }
-
-            .modal-content h1 {
-                font-size: 1.5rem;
-            }
-
-            .grid {
-                grid-template-columns: 1fr;
-            }
-
-            .logo-btn {
-                font-size: 1.875rem;
-            }
-
-            main {
-                padding: 1.5rem;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+footer{
+  background:var(--panel);
+  text-align:center;
+  padding:12px;
+  color:#888;
+  font-size:14px;
+}
+</style>
 </head>
+
 <body>
-    <!-- Modal de Aviso -->
-    <div class="modal-overlay" id="warningModal">
-        <div class="modal-content">
-            <h1>⚠️ AVISO IMPORTANTE</h1>
-            <div class="space-y-4">
-                <p>Este sitio web está hecho para fines educativos</p>
-                <p class="yellow">Recuerda que el uso de clientes hackeados están contra las reglas</p>
-                <p class="red">No olvides que tu cuenta está en riesgo de baneos</p>
-                <p>No olvides informar a <span class="purple">@j_eliseoo_v en tiktok</span> si hay algún error o bug</p>
-                <p class="green">¡Que lo disfrutes!</p>
-            </div>
-            <button class="modal-btn" onclick="closeWarning()">Continuar</button>
-        </div>
-    </div>
 
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <div class="header-top">
-                <button class="logo-btn" onclick="scrollToTop()">🏠 HOME FORGEX</button>
-                <div class="header-subtitle">Eaglercraft clientes hackeados por @j_eliseoo_v en TIKTOK</div>
-            </div>
-            <input 
-                type="text" 
-                class="search-input" 
-                id="searchInput"
-                placeholder="Buscar cliente, versión o serie..." 
-                onkeyup="filterClients()"
-            />
-        </div>
-    </header>
+<header>
+  <h1>FORGEX HUB</h1>
+</header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Mejores Clientes 2025 -->
-        <div class="featured-section" id="featuredSection">
-            <h2 class="section-title">Mejores clientes 2025</h2>
-            <div class="grid">
-                <div class="client-card">
-                    <div class="client-name">DragonX Client</div>
-                    <div class="client-version">V5.1</div>
-                    <button class="open-btn" onclick="window.open('https://eaglerhacks.github.io/dragonxv5.html', '_blank')">Abrir</button>
-                </div>
-                <div class="client-card">
-                    <div class="client-name">WurstX Client</div>
-                    <div class="client-version">&nbsp;</div>
-                    <button class="open-btn" onclick="window.open('https://eaglerhacks.github.io/wurstX.html', '_blank')">Abrir</button>
-                </div>
-            </div>
-        </div>
+<section>
+  <div class="demo-alert">
+Esta página se encuentra en construcción, pronto se implementarán nuevos juegos en linea con hacks.
+  </div>
 
-        <!-- Series -->
-        <div id="seriesContainer"></div>
+  <h2>Minefun.io MOD MENU</h2>
 
-        <!-- No Results -->
-        <div class="no-results" id="noResults">
-            No se encontraron clientes que coincidan con tu búsqueda.
-        </div>
-    </main>
+  <div class="preview">
+    <img src="https://i.imgur.com/tWxtHEN.png" alt="Minefun preview">
+    <br>
+    <span class="fullscreen-btn" onclick="openModal()">Full Screen</span>
+  </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <p>⚠️ AVISO IMPORTANTE: Los clientes hackeados están diseñados solo con fines educativos.</p>
-            <p>El uso no autorizado de hacks puede resultar en bans permanentes.</p>
-        </div>
-    </footer>
+  <div class="step">
+    <h3>Paso 1 – Instalar Tampermonkey</h3>
+    <p>
+      Para usar el MOD MENU en Minefun.io, primero necesitas instalar la extensión <b>Tampermonkey</b>. Esta extensión permite ejecutar scripts dentro de tu navegador. Si el enlace se bloquea, copia y pégalo en una nueva pestaña.
+      <br><br>
+      👉 <a href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=es-419&utm_source=ext_sidebar" target="_blank">
+      Instalar Tampermonkey
+      </a>
+    </p>
+  </div>
 
-    <script>
-        // Datos de clientes
-        const clients = [
-            // UwU Series
-            { series: "UwU Series", name: "UwUClient", version: "Beta 2", link: "https://eaglerhacks.github.io/UwU-client-b2.html" },
-            { series: "UwU Series", name: "UwU+ Client", version: "1.0", link: "https://eaglerhacks.github.io/UwU+-client-1.0.html" },
+  <div class="step">
+    <h3>Paso 2 – Instalar el script Funr3g</h3>
+    <p>
+      Una vez instalada la extensión, visita el script Funr3g en GreasyFork y haz clic en <b>Install version</b>, luego en <b>Install</b>.
+      <br><br>
+      👉 <a href="https://greasyfork.org/en/scripts/537529-funr3g" target="_blank">Funr3g – MOD MENU</a>
+    </p>
+  </div>
 
-            // Dragon Series
-            { series: "Dragon Series", name: "DragonX Client", version: "V5.1", link: "https://eaglerhacks.github.io/dragonxv5.html" },
-            { series: "Dragon Series", name: "Dragon Souls Client", version: "2.0", link: "https://eaglerhacks.github.io/dragon-souls-2.0.html" },
+  <div class="step">
+    <h3>Paso 3 – Abrir Minefun.io</h3>
+    <p>
+      Después de instalar el script, dirígete a <a href="https://minefun.io" target="_blank">Minefun.io</a> y espera a que el juego cargue correctamente.
+    </p>
+  </div>
 
-            // Shadow Series
-            { series: "Shadow Series", name: "Shadow Client", version: "1.2", link: "https://eaglerhacks.github.io/shadow-client-1.2.html" },
-            { series: "Shadow Series", name: "ShadowX Client", version: "3.0", link: "https://eaglerhacks.github.io/shadowx-client-3.0.html" },
+  <div class="step">
+    <h3>Paso 4 – Mostrar el menú</h3>
+    <p>
+      Si el menú del mod no aparece automáticamente, simplemente <b>refresca la página</b> y vuelve a intentarlo.
+    </p>
+  </div>
 
-            // Otros clientes recomendados
-            { series: "Otros clientes recomendados", name: "Wurst Client", version: "7.0", link: "https://eaglerhacks.github.io/wurst-7.0.html" },
-            { series: "Otros clientes recomendados", name: "Sigma Client", version: "5.2", link: "https://eaglerhacks.github.io/sigma-5.2.html" },
-            { series: "Otros clientes recomendados", name: "Impact Client", version: "4.8", link: "https://eaglerhacks.github.io/impact-4.8.html" },
-            { series: "Otros clientes recomendados", name: "Future Client", version: "12.5", link: "https://eaglerhacks.github.io/future-12.5.html" },
-            { series: "Otros clientes recomendados", name: "Flan Clientele", version: "2.4", link: "https://eaglerhacks.github.io/flan-2.4.html" },
-        ];
+  <div class="step">
+    <h3>Disfruta</h3>
+    <p>
+      Disfruta del <b>MOD MENU de Minefun.io</b> y explora todas sus funciones 🔥
+    </p>
+  </div>
+</section>
 
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', initializeApp);
+<!-- Modal imagen -->
+<div class="modal" id="modal" onclick="closeModal()">
+  <span class="close" onclick="closeModal()">×</span>
+  <img src="https://i.imgur.com/tWxtHEN.png">
+</div>
 
-        function initializeApp() {
-            renderSeries();
-        }
+<footer>
+  FORGEX HUB © 2025
+</footer>
 
-        function renderSeries() {
-            const container = document.getElementById('seriesContainer');
-            container.innerHTML = '';
+<script>
+function openModal(){
+  document.getElementById("modal").style.display="block";
+}
 
-            // Agrupar por series
-            const groupedSeries = {};
-            clients.forEach(client => {
-                if (!groupedSeries[client.series]) {
-                    groupedSeries[client.series] = [];
-                }
-                groupedSeries[client.series].push(client);
-            });
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+</script>
 
-            // Renderizar cada serie
-            Object.entries(groupedSeries).forEach(([series, seriesClients]) => {
-                const seriesGroup = document.createElement('div');
-                seriesGroup.className = 'series-group';
-                seriesGroup.dataset.series = series;
-
-                const title = document.createElement('h2');
-                title.className = 'section-title';
-                title.textContent = series;
-
-                const grid = document.createElement('div');
-                grid.className = 'grid';
-
-                seriesClients.forEach(client => {
-                    const card = document.createElement('div');
-                    card.className = 'client-card';
-                    card.dataset.searchText = `${client.name} ${client.version || ''} ${client.series}`.toLowerCase();
-                    card.innerHTML = `
-                        <div class="client-name">${client.name}</div>
-                        <div class="client-version">${client.version || '&nbsp;'}</div>
-                        <button class="open-btn" onclick="window.open('${client.link}', '_blank')">Abrir</button>
-                    `;
-                    grid.appendChild(card);
-                });
-
-                seriesGroup.appendChild(title);
-                seriesGroup.appendChild(grid);
-                container.appendChild(seriesGroup);
-            });
-        }
-
-        function filterClients() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const featuredSection = document.getElementById('featuredSection');
-            const seriesGroups = document.querySelectorAll('.series-group');
-            const noResults = document.getElementById('noResults');
-
-            // Ocultar sección destacada si hay búsqueda
-            if (searchTerm.length > 0) {
-                featuredSection.classList.add('hidden');
-            } else {
-                featuredSection.classList.remove('hidden');
-            }
-
-            let totalVisibleCards = 0;
-
-            seriesGroups.forEach(group => {
-                const cards = group.querySelectorAll('.client-card');
-                let visibleCards = 0;
-
-                cards.forEach(card => {
-                    const searchText = card.dataset.searchText;
-                    if (searchText.includes(searchTerm) || searchTerm === '') {
-                        card.style.display = '';
-                        visibleCards++;
-                        totalVisibleCards++;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                // Ocultar grupo si no hay resultados
-                if (visibleCards === 0) {
-                    group.classList.add('hidden');
-                } else {
-                    group.classList.remove('hidden');
-                }
-            });
-
-            // Mostrar "no hay resultados"
-            if (searchTerm.length > 0 && totalVisibleCards === 0) {
-                noResults.classList.add('show');
-            } else {
-                noResults.classList.remove('show');
-            }
-        }
-
-        function closeWarning() {
-            document.getElementById('warningModal').classList.add('hidden');
-        }
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
 </body>
 </html>
